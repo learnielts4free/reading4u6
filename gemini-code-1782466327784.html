@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wonderful Neighbourhood & More - English Test</title>
+    <!-- Nhúng Google Fonts 'Nunito' để tạo cảm giác tròn trịa, thân thiện -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Tự động thiết lập Hệ màu Dynamic Theme theo chủ đề "Neighborhood / Vùng lân cận / Đời sống" */
+            --primary-gradient: linear-gradient(135deg, #74b9ff, #a29bfe, #ffeaa7);
+            --primary-color: #6c5ce7;
+            --secondary-color: #0984e3;
+            --correct-color: #00d26a;
+            --incorrect-color: #ff4757;
+            --text-color: #2d3436;
+            --bg-card: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            background-color: #74b9ff;
+            /* Thiết lập hiệu ứng Gradient chuyển động liên tục kết hợp SVG Pattern các ngôi sao, ngôi nhà lơ lửng */
+            background-image: 
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.15'%3E%3Cpath d='M10 10h4v4h-4zm20 30h4v4h-4zm40-20h4v4h-4zM20 60h4v4h-4zm40 10h4v4h-4z'/%3E%3Ctext x='40' y='50' font-size='20'%3E🏡%3C/text%3E%3Ctext x='15' y='25' font-size='15'%3E⭐%3C/text%3E%3Ctext x='65' y='25' font-size='18'%3E🌳%3C/text%3E%3C/g%3E%3C/svg%3E"), 
+                linear-gradient(45deg, #74b9ff, #a29bfe, #ffeaa7, #74b9ff);
+            background-size: 160px 160px, 400% 400%;
+            animation: gradientAnimation 20s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 0%, 0% 50%; }
+            50% { background-position: 80px 80px, 100% 50%; }
+            100% { background-position: 0% 0%, 0% 50%; }
+        }
+
+        /* Top Header & Control Bar */
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            backdrop-filter: blur(4px);
+            border-bottom: 4px solid var(--primary-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .header-title h1 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-title h2 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #636e72;
+        }
+
+        .timer-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffeaa7;
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 3px solid #fdcb6e;
+            box-shadow: 0 4px 0 #fdcb6e;
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #d63031;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .timer-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #4834d4;
+            transition: all 0.1s ease;
+        }
+
+        .timer-btn:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+
+        /* Split Screen Layout */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            padding: 15px;
+            gap: 15px;
+        }
+
+        .left-panel, .right-panel {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 4px solid #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        .left-panel::-webkit-scrollbar, .right-panel::-webkit-scrollbar {
+            width: 8px;
+        }
+        .left-panel::-webkit-scrollbar-thumb, .right-panel::-webkit-scrollbar-thumb {
+            background: #b2bec3;
+            border-radius: 10px;
+        }
+
+        /* Passage Typography */
+        .passage-card {
+            background: #f9f9f9;
+            border: 3px solid #dfe6e9;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .passage-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .passage-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+
+        .blank-indicator {
+            display: inline-block;
+            background: #dfe6e9;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: var(--primary-color);
+            border: 2px dashed var(--primary-color);
+        }
+
+        /* Translation Component */
+        .translate-btn {
+            background: #eccc68;
+            color: #2f3542;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 0 #ffa502;
+            transition: all 0.1s ease;
+            margin-bottom: 10px;
+        }
+
+        .translate-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .translate-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .translation-content {
+            display: none;
+            background: #fffdf0;
+            border-left: 5px solid #ffa502;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-top: 10px;
+            color: #57606f;
+            text-align: justify;
+        }
+
+        /* Glossary Table Design */
+        .glossary-box {
+            margin-top: 15px;
+            border: 3px solid #a29bfe;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .glossary-title {
+            background: #a29bfe;
+            color: white;
+            padding: 8px 12px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .glossary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            background: white;
+        }
+
+        .glossary-table th, .glossary-table td {
+            border: 1px solid #dfe6e9;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        .glossary-table th {
+            background: #f1f2f6;
+            font-weight: 700;
+        }
+
+        .glossary-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* Exercises Component Style (Right side) */
+        .exercise-group-title {
+            background: var(--primary-gradient);
+            padding: 12px 20px;
+            border-radius: 15px;
+            color: #2d3436;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 0 rgba(0,0,0,0.05);
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+
+        .question-card {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2d3436;
+        }
+
+        /* Multiple Choice Option Buttons (Gamified 3D Effect) */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #ffffff;
+            border: 3px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #e2e8f0;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #cbd5e1;
+            border-color: #cbd5e1;
+        }
+
+        .option-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* States for Option answers */
+        .option-btn.correct-ans {
+            background-color: #e6fcf5 !important;
+            border-color: var(--correct-color) !important;
+            box-shadow: 0 5px 0 var(--correct-color) !important;
+            color: #099268 !important;
+        }
+
+        .option-btn.incorrect-ans {
+            background-color: #fff5f5 !important;
+            border-color: var(--incorrect-color) !important;
+            box-shadow: 0 5px 0 var(--incorrect-color) !important;
+            color: #e03131 !important;
+        }
+
+        .option-btn.disabled-state {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .option-btn.correct-ans.disabled-state {
+            opacity: 1;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 14px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .exp-title {
+            font-weight: 800;
+            color: #4a5568;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Action Footer */
+        .action-footer {
+            padding: 15px 20px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+            z-index: 10;
+            border-top: 4px solid #dfe6e9;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #00cb54, #00b343);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 900;
+            padding: 12px 50px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #008532;
+            transition: all 0.1s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 #008532;
+        }
+
+        .submit-btn:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+
+        /* Shake Animation for incorrect choices */
+        .shake-animation {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        /* Confetti Elements canvas container */
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* Score Modal Dashboard Overlay */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 30px;
+            max-width: 550px;
+            width: 100%;
+            padding: 30px;
+            text-align: center;
+            border: 6px solid var(--primary-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-badge {
+            font-size: 5rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-score {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .modal-feedback {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-close-btn {
+            background: var(--secondary-color);
+            color: white;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #0652dd;
+        }
+
+        .modal-close-btn:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        /* Responsive UI fixes */
+        @media(max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                overflow-y: auto;
+            }
+            .left-panel, .right-panel {
+                overflow-y: visible;
+                flex: none;
+            }
+            body {
+                overflow: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Top Control Bar Area -->
+    <header>
+        <div class="header-title">
+            <h1>Exercises 11, 12 & 13 Practice</h1>
+            <h2>Giáo viên tạo: Ms Lê Hằng English</h2>
+        </div>
+        <div class="timer-container">
+            <span>⏰</span>
+            <div id="timerDisplay" class="timer-display">10:00</div>
+            <button id="timerControlBtn" class="timer-btn" onclick="toggleTimer()">BẮT ĐẦU TÍNH GIỜ LÀM BÀI</button>
+        </div>
+    </header>
+
+    <!-- Split Screen Core Container -->
+    <div class="main-container">
+        
+        <!-- LEFT PANEL: Reading Passages & Glossaries -->
+        <div class="left-panel">
+            
+            <!-- EX 11.1 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 11 - Passage ❶: My Wonderful Neighbourhood!</div>
+                <div class="passage-text">
+                    Hi everyone! Let's talk about your neighbourhood. Is it <span class="blank-indicator">(1)</span> or quiet? My neighbourhood is great! There are shops, a park, and a market. I often walk <span class="blank-indicator">(2)</span> the park with my dog. It's so much fun! My neighbourhood is also <span class="blank-indicator">(3)</span> than the city center because it has a beautiful art gallery. Do you have a favourite place <span class="blank-indicator">(4)</span> your neighbourhood? Tell us about it!
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Chào mọi người! Hãy cùng trò chuyện về nơi bạn sống nhé. Nơi đó ồn ào hay yên tĩnh? Khu phố của mình tuyệt lắm! Ở đây có các cửa hàng, một công viên và một ngôi chợ. Mình thường đi bộ trong công viên với chú chó của mình. Thật là vui! Khu phố của mình cũng tuyệt vời hơn trung tâm thành phố vì nó có một triển lãm nghệ thuật rất đẹp. Bạn có địa điểm yêu thích nào trong khu phố của mình không? Hãy kể cho mọi người cùng nghe nhé!
+                </div>
+                
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Neighbourhood</td><td>noun</td><td>Khu phố, vùng lân cận (B1)</td></tr>
+                            <tr><td>Quiet</td><td>adjective</td><td>Yên tĩnh, thanh bình (A1)</td></tr>
+                            <tr><td>Market</td><td>noun</td><td>Chợ, thị trường (A1)</td></tr>
+                            <tr><td>Gallery</td><td>noun</td><td>Phòng triển lãm tranh/ảnh (B1)</td></tr>
+                            <tr><td>Favourite</td><td>adjective</td><td>Được yêu thích nhất (A1)</td></tr>
+                            <tr><td>Noisy</td><td>adjective</td><td>Ồn ào, huyên náo (A2)</td></tr>
+                            <tr><td>Center</td><td>noun</td><td>Trung tâm (A1)</td></tr>
+                            <tr><td>Beautiful</td><td>adjective</td><td>Xinh đẹp, lộng lẫy (A1)</td></tr>
+                            <tr><td>Often</td><td>adverb</td><td>Thường xuyên (A1)</td></tr>
+                            <tr><td>Talk about</td><td>phrasal verb</td><td>Trò chuyện, thảo luận về (A1)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 11.2 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 11 - Passage ❷: Our Neighborhood Charity Shop!</div>
+                <div class="passage-text">
+                    Do you want to help people and find great things? Visit our local charity shop! It’s very <span class="blank-indicator">(1)</span> for everyone. You can donate old clothes or books. People buy these items, and the money helps local charities. Our shop is <span class="blank-indicator">(2)</span> than a regular shop because prices are lower. You can find unique items <span class="blank-indicator">(3)</span> a good price. Come and support our community <span class="blank-indicator">(4)</span>!
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Bạn có muốn giúp đỡ mọi người và tìm thấy những món đồ tuyệt vời không? Hãy ghé thăm cửa hàng từ thiện tại địa phương của chúng tôi! Nó rất tiện lợi cho tất cả mọi người. Bạn có thể quyên góp quần áo cũ hoặc sách vở. Mọi người mua những món đồ này, và số tiền đó sẽ dùng để hỗ trợ các tổ chức từ thiện địa phương. Cửa hàng của chúng tôi rẻ hơn một cửa hàng thông thường vì giá cả thấp hơn. Bạn có thể tìm thấy những món đồ độc đáo với giá tốt. Hãy đến và hỗ trợ chiến dịch cộng đồng của chúng tôi nào!
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Charity</td><td>noun</td><td>Từ thiện, tổ chức cứu tế (B2)</td></tr>
+                            <tr><td>Convenient</td><td>adjective</td><td>Tiện lợi, thuận tiện (B1)</td></tr>
+                            <tr><td>Donate</td><td>verb</td><td>Quyên góp, hiến tặng (B2)</td></tr>
+                            <tr><td>Regular</td><td>adjective</td><td>Thông thường, thường nhật (B1)</td></tr>
+                            <tr><td>Unique</td><td>adjective</td><td>Độc nhất vô nhị, độc đáo (B2)</td></tr>
+                            <tr><td>Support</td><td>verb / noun</td><td>Ủng hộ, hỗ trợ (B1)</td></tr>
+                            <tr><td>Community</td><td>noun</td><td>Cộng đồng (B2)</td></tr>
+                            <tr><td>Initiative</td><td>noun</td><td>Sáng kiến, chiến dịch bắt đầu (C1)</td></tr>
+                            <tr><td>Cause</td><td>noun</td><td>Mục tiêu cao cả, lý do chính đáng (C1)</td></tr>
+                            <tr><td>Item</td><td>noun</td><td>Món đồ, vật phẩm (B1)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 11.3 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 11 - Passage ❸: Understanding Your Neighborhood</div>
+                <div class="passage-text">
+                    Have you ever wondered about the special tunnels under the road? These are pedestrian subways! They make crossing busy streets much <span class="blank-indicator">(1)</span>. It's safer to use them than walking on the street. Our neighborhood has a subway, and it's even <span class="blank-indicator">(2)</span> than the old one downtown. You can find it <span class="blank-indicator">(3)</span> the big supermarket. Using these subways is a great example of <span class="blank-indicator">(4)</span> urban planning.
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Có bao giờ bạn thắc mắc về những đường hầm đặc biệt nằm dưới lòng đường chưa? Đó chính là những hầm bộ hành dành cho người đi bộ! Chúng giúp việc băng qua những con phố bận rộn trở nên dễ dàng hơn nhiều. Sử dụng hầm sẽ an toàn hơn là đi bộ trực tiếp trên lòng đường. Khu phố của chúng ta có một đường hầm bộ hành, và nó thậm chí còn tốt hơn hầm cũ ở trung tâm thành phố. Bạn có thể tìm thấy nó ở gần siêu thị lớn. Việc sử dụng các hầm bộ hành này là một ví dụ tuyệt vời về quy hoạch đô thị hiện đại.
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Pedestrian</td><td>noun / adj</td><td>Người đi bộ, thuộc về bộ hành (B2)</td></tr>
+                            <tr><td>Subway</td><td>noun</td><td>Đường hầm ngầm, tàu điện ngầm (B1)</td></tr>
+                            <tr><td>Crossing</td><td>noun</td><td>Việc băng qua đường (B1)</td></tr>
+                            <tr><td>Downtown</td><td>noun / adv</td><td>Trung tâm thành phố, khu phố thương mại (B1)</td></tr>
+                            <tr><td>Urban</td><td>adjective</td><td>Thuộc về đô thị, thành thị (B2)</td></tr>
+                            <tr><td>Planning</td><td>noun</td><td>Sự quy hoạch, lập kế hoạch (B1)</td></tr>
+                            <tr><td>Wonder</td><td>verb</td><td>Băn khoăn, tự hỏi, thắc mắc (B1)</td></tr>
+                            <tr><td>Supermarket</td><td>noun</td><td>Siêu thị (A1)</td></tr>
+                            <tr><td>Example</td><td>noun</td><td>Ví dụ, hình mẫu (A1)</td></tr>
+                            <tr><td>Modern</td><td>adjective</td><td>Hiện đại, tân tiến (A2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 12.1 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 12 - Passage ❶: My Neighbourhood (Nick's Story)</div>
+                <div class="passage-text">
+                    My name is Nick. My neighbourhood is not in the city. It’s in the suburbs. It is very peaceful and quiet. It is a new neighbourhood, and there are a lot of big houses and some apartment buildings. There are a lot of big trees and there aren’t many cars so the streets are very <span class="blank-indicator">(1)</span>. There’s a park <span class="blank-indicator">(2)</span> my neighbourhood, which has a small playground for children. I like to play baseball there with my friends after school. There aren’t any restaurants, bars or cinemas <span class="blank-indicator">(3)</span> my road. But, if you go to Main Street, you can find a lot of things to <span class="blank-indicator">(4)</span>. I like my neighbourhood because it is very safe. There is no <span class="blank-indicator">(5)</span>, and all of my neighbours take care of <span class="blank-indicator">(6)</span>. I think I am lucky to live in my neighbourhood.
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Tên của mình là Nick. Khu phố của mình không nằm ở thành phố. Nó nằm ở vùng ngoại ô. Nó rất thanh bình và yên tĩnh. Đây là một khu dân cư mới, có rất nhiều ngôi nhà lớn và vài tòa nhà chung cư. Ở đây có nhiều cây lớn và không có nhiều xe hơi nên đường phố rất sạch sẽ. Có một công viên ở trong khu phố của mình, nơi có một sân chơi nhỏ cho trẻ em. Mình thích chơi bóng chày ở đó với bạn bè sau giờ học. Không có bất kỳ nhà hàng, quán bar hay rạp chiếu phim nào trên con đường của mình cả. Nhưng nếu bạn đi ra Phố Chính (Main Street), bạn có thể tìm thấy rất nhiều thứ để trải nghiệm/làm. Mình thích khu phố của mình vì nó rất an toàn. Không hề có tội phạm, và tất cả hàng xóm của mình đều quan tâm lẫn nhau. Mình nghĩ mình thật may mắn khi được sống ở khu phố này.
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Suburbs</td><td>noun (plural)</td><td>Vùng ngoại ô (B2)</td></tr>
+                            <tr><td>Peaceful</td><td>adjective</td><td>Thanh bình, hòa bình (B1)</td></tr>
+                            <tr><td>Apartment</td><td>noun</td><td>Căn hộ, chung cư (A2)</td></tr>
+                            <tr><td>Playground</td><td>noun</td><td>Sân chơi trẻ em (A2)</td></tr>
+                            <tr><td>Baseball</td><td>noun</td><td>Môn bóng chày (A2)</td></tr>
+                            <tr><td>Crime</td><td>noun</td><td>Tội phạm, tệ nạn (B1)</td></tr>
+                            <tr><td>Each other</td><td>pronoun</td><td>Lẫn nhau (nhấn mạnh tương tác 2 chiều) (A2)</td></tr>
+                            <tr><td>Lucky</td><td>adjective</td><td>May mắn (A2)</td></tr>
+                            <tr><td>Neighbour</td><td>noun</td><td>Người hàng xóm (A2)</td></tr>
+                            <tr><td>Take care of</td><td>idiom / phrase</td><td>Chăm sóc, để tâm, bảo vệ (A2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 12.2 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 12 - Passage ❷: My Neighbour John</div>
+                <div class="passage-text">
+                    My neighbour is John. He is from Australia. We have been friends for over a year. We both live in the countryside <span class="blank-indicator">(1)</span> our family. John's parents are farmers. He often helps <span class="blank-indicator">(2)</span> to look after vegetables in the garden in his free time. He likes <span class="blank-indicator">(3)</span> vegetables and flowers. He'd like to be a farmer in the future and to work on a farm. He thinks farming <span class="blank-indicator">(4)</span> exciting and interesting. Now he <span class="blank-indicator">(5)</span> biology hard at school. He wants to be good at biology <span class="blank-indicator">(6)</span> it's important for his future job.
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Hàng xóm của mình là John. Cậu ấy đến từ Úc. Chúng mình đã là bạn được hơn một năm. Cả hai chúng mình đều sống ở vùng nông thôn cùng với gia đình của mình. Bố mẹ của John là nông dân. Cậu ấy thường xuyên giúp họ chăm sóc rau củ trong vườn vào thời gian rảnh rỗi. Cậu ấy thích trồng rau và hoa. Cậu ấy muốn trở thành một người nông dân trong tương lai và làm việc trên một trang trại. Cậu ấy nghĩ công việc làm nông rất thú vị và hấp dẫn. Hiện tại cậu ấy đang học tập chăm chỉ môn sinh học ở trường. Cậu ấy muốn giỏi môn sinh học vì nó rất quan trọng cho công việc tương lai của cậu ấy.
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Countryside</td><td>noun</td><td>Vùng nông thôn, miền quê (A2)</td></tr>
+                            <tr><td>Farmer</td><td>noun</td><td>Nông dân, chủ trang trại (A1)</td></tr>
+                            <tr><td>Look after</td><td>phrasal verb</td><td>Chăm sóc, trông nom (A2)</td></tr>
+                            <tr><td>Grow</td><td>verb</td><td>Trồng trọt, phát triển (A1)</td></tr>
+                            <tr><td>Future</td><td>noun / adj</td><td>Tương lai (A2)</td></tr>
+                            <tr><td>Exciting</td><td>adjective</td><td>Hào hứng, thú vị (A1)</td></tr>
+                            <tr><td>Biology</td><td>noun</td><td>Sinh học (B1)</td></tr>
+                            <tr><td>Important</td><td>adjective</td><td>Quan trọng (A1)</td></tr>
+                            <tr><td>Free time</td><td>noun</td><td>Thời gian rảnh rỗi (A1)</td></tr>
+                            <tr><td>Hard</td><td>adverb</td><td>Chăm chỉ, hết sức mình (A2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 12.3 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 12 - Passage ❸: Newquay: A Great Place to Visit!</div>
+                <div class="passage-text">
+                    I live <span class="blank-indicator">(1)</span> Newquay. It's a small town on the Atlantic coast in the south of England. It has got great beaches and it is the best place to surf in the UK. There are lots of surf schools where you can learn <span class="blank-indicator">(2)</span> to surf. I go surfing with my friends every weekend. My favourite place is Fistral Beach. I love Newquay because there are lots of other things to <span class="blank-indicator">(3)</span> as well as surfing. If you like water sports, you can go kayaking or water-skiing. If you <span class="blank-indicator">(4)</span> animals, you can visit the Blue Reef Aquarium and see lots of different fish and even sharks. You can also go horse riding on the beach or visit Newquay Zoo. There are lots of other attractions <span class="blank-indicator">(5)</span> like mini golf and bowling. Come and see for <span class="blank-indicator">(6)</span>!
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Mình sống ở Newquay. Đó là một thị trấn nhỏ nằm bên bờ biển Đại Tây Dương ở phía nam nước Anh. Nơi này có những bãi biển tuyệt vời và là địa điểm lướt sóng tốt nhất ở Vương quốc Anh. Có rất nhiều trường học lướt sóng nơi bạn có thể học cách lướt sóng. Mình đi lướt sóng với bạn bè vào mỗi cuối tuần. Địa điểm yêu thích của mình là Bãi biển Fistral. Mình yêu Newquay vì có rất nhiều điều khác để làm bên cạnh việc lướt sóng. Nếu bạn thích thể thao dưới nước, bạn có thể đi chèo thuyền kayak hoặc trượt nước. Nếu bạn yêu thích động vật, bạn có thể ghé thăm Thủy cung Blue Reef và ngắm nhìn nhiều loại cá khác nhau và thậm chí cả cá mập. Bạn cũng có thể cưỡi ngựa trên bãi biển hoặc ghé thăm Sở thú Newquay. Còn có rất nhiều điểm tham quan khác nữa như chơi gôn mi-ni và bowling. Hãy đến và tự mình trải nghiệm xem nhé!
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Coast</td><td>noun</td><td>Bờ biển, vùng duyên hải (B1)</td></tr>
+                            <tr><td>Surf</td><td>verb / noun</td><td>Lướt sóng (B1)</td></tr>
+                            <tr><td>Weekend</td><td>noun</td><td>Cuối tuần (A1)</td></tr>
+                            <tr><td>As well as</td><td>conjunction</td><td>Cũng như, bên cạnh cái gì (B1)</td></tr>
+                            <tr><td>Aquarium</td><td>noun</td><td>Thủy cung, bể cá lớn (B1)</td></tr>
+                            <tr><td>Shark</td><td>noun</td><td>Cá mập (A2)</td></tr>
+                            <tr><td>Attraction</td><td>noun</td><td>Điểm thu hút khách du lịch (B2)</td></tr>
+                            <tr><td>Bowling</td><td>noun</td><td>Trò chơi ném bóng bowling (A2)</td></tr>
+                            <tr><td>Yourself</td><td>pronoun</td><td>Chính bản thân bạn (A2)</td></tr>
+                            <tr><td>Kayaking</td><td>noun</td><td>Môn chèo thuyền kayak (B1)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 13.1 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 13 - Reading ❶: City vs. Country Life</div>
+                <div class="passage-text">
+                    If you are the type of person who loves to meet many different people from different cultures and social status, then the city is better for you. The city is where people from all different background and status come to work and live because everything so centralized in the city. The city's population is also more concentrated, so you also have a higher chance of meeting people. In the country, the distance between other people is harder, so it is less convenient to meet other people. Hence, if you want a busy social life, the city is better.<br><br>
+                    If you have asthma or you are really sensitive to pollution, then the country lifestyle is best for you. In the country there is much less pollution because there are fewer cars, traffic and industrial plants in the country. There are also more trees, rivers and other natural scenery. If you want your kids to run around in open safe environments, then the country is also much better.
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Nếu bạn là kiểu người thích gặp gỡ nhiều người khác nhau đến từ các nền văn hóa và địa vị xã hội khác nhau, thì thành phố sẽ tốt hơn cho bạn. Thành phố là nơi mọi người từ mọi hoàn cảnh và địa vị khác nhau đến làm việc và sinh sống vì mọi thứ đều rất tập trung tại thành phố. Dân số của thành phố cũng đậm đặc hơn, vì vậy bạn cũng có cơ hội gặp gỡ mọi người cao hơn. Ở nông thôn, khoảng cách giữa người với người xa hơn, vì vậy việc gặp gỡ những người khác ít thuận tiện hơn. Do đó, nếu bạn muốn có một đời sống xã hội bận rộn, thành phố là lựa chọn tốt hơn.<br><br>
+                    Nếu bạn bị hen suyễn hoặc bạn thực sự nhạy cảm với ô nhiễm, thì lối sống ở nông thôn là tốt nhất cho bạn. Ở nông thôn có ít ô nhiễm hơn nhiều vì có ít xe hơi, giao thông và các nhà máy công nghiệp hơn. Ở đây cũng có nhiều cây cối, sông ngòi và phong cảnh thiên nhiên khác. Nếu bạn muốn con mình chạy nhảy trong môi trường mở an toàn, thì nông thôn cũng tốt hơn nhiều.
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Culture</td><td>noun</td><td>Nền văn hóa (B1)</td></tr>
+                            <tr><td>Social status</td><td>noun phrase</td><td>Địa vị xã hội (C1)</td></tr>
+                            <tr><td>Centralized</td><td>adjective</td><td>Mang tính tập trung (C1)</td></tr>
+                            <tr><td>Concentrated</td><td>adjective</td><td>Tập trung cao độ, đậm đặc (C1)</td></tr>
+                            <tr><td>Hence</td><td>adverb</td><td>Do đó, vì thế (B2)</td></tr>
+                            <tr><td>Asthma</td><td>noun</td><td>Bệnh hen suyễn (C2)</td></tr>
+                            <tr><td>Pollution</td><td>noun</td><td>Sự ô nhiễm (B1)</td></tr>
+                            <tr><td>Industrial plant</td><td>noun phrase</td><td>Nhà máy / Xí nghiệp công nghiệp (C1)</td></tr>
+                            <tr><td>Scenery</td><td>noun</td><td>Phong cảnh, cảnh quan thiên nhiên (B1)</td></tr>
+                            <tr><td>Environment</td><td>noun</td><td>Môi trường sống (B1)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 13.2 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 13 - Reading ❷: NOISY NEIGHBOURS</div>
+                <div class="passage-text">
+                    Do you sometimes have problems with your neighbours such as noise or littering? Well, the people of Pilton in Somerset, England have such problems every summer, for three or four days every year, the village is full of people of all ages who comes here for the annual Glastonbury pop music festival. They usually stay in tents. Caravans and motorhomes. They leave drink cans and papers all over the streets. The music plays until the early hours of the morning, and you can hear people talking and singing all night, the quiet country village becomes a nightmare to live in and some villagers are even thinking of moving to another village. A villager said last year: "I don't want to stop the Glastonbury Festival. I just want the fans to enjoy the festival without disturbing normal village life."
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Đôi khi bạn có gặp rắc rối với hàng xóm của mình như tiếng ồn hoặc việc xả rác không? Người dân ở Pilton thuộc Somerset, nước Anh phải chịu đựng những vấn đề như vậy mỗi mùa hè. Cứ 3 hoặc 4 ngày mỗi năm, ngôi làng lại tràn ngập người ở mọi lứa tuổi đổ về đây để tham dự lễ hội âm nhạc pop Glastonbury thường niên. Họ thường ở trong lều, xe kéo du lịch và nhà di động. Họ vứt lon nước ngọt và giấy tờ khắp các con phố. Âm nhạc chơi cho đến tận rạng sáng, và bạn có thể nghe thấy tiếng người nói chuyện, ca hát thâu đêm. Ngôi làng quê yên tĩnh bỗng trở thành một cơn ác mộng để sinh sống và một số dân làng thậm chí đang nghĩ đến việc chuyển sang một ngôi làng khác. Một người dân cho biết vào năm ngoái: "Tôi không muốn bắt dừng Lễ hội Glastonbury. Tôi chỉ muốn người hâm mộ tận hưởng lễ hội mà không làm xáo trộn cuộc sống bình thường của ngôi làng."
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Littering</td><td>noun (gerund)</td><td>Hành vi vứt rác bừa bãi (B2)</td></tr>
+                            <tr><td>Annual</td><td>adjective</td><td>Thường niên, hàng năm (B2)</td></tr>
+                            <tr><td>Festival</td><td>noun</td><td>Lễ hội (A2)</td></tr>
+                            <tr><td>Caravan</td><td>noun</td><td>Xe hộ tống, xe kéo du lịch có chỗ ở (B2)</td></tr>
+                            <tr><td>Motorhome</td><td>noun</td><td>Xe ô tô chuyên dụng như nhà di động (B2)</td></tr>
+                            <tr><td>Nightmare</td><td>noun</td><td>Cơn ác mộng (B2)</td></tr>
+                            <tr><td>Disturb</td><td>verb</td><td>Làm phiền, gây náo loạn (B2)</td></tr>
+                            <tr><td>Villager</td><td>noun</td><td>Dân làng (B1)</td></tr>
+                            <tr><td>Early hours</td><td>idiom</td><td>Lúc rạng sáng, nửa đêm (B1)</td></tr>
+                            <tr><td>Normal</td><td>adjective</td><td>Bình thường, thông thường (A2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EX 13.3 -->
+            <div class="passage-card">
+                <div class="passage-title">🌟 Exercise 13 - Reading ❸: London Travel Study</div>
+                <div class="passage-text">
+                    London is the capital city of the United Kingdom. There are a lot of cars in the city. People go everywhere by car, so traffic in the city centre is heavier than that in the suburbs. It is harder to find a place to park a car than to do it in other areas. The public means of transport is cheaper than cars but the Londoners prefer their own cars. Moreover, there are more and more tourists and visitors coming to London for sightseeing or shopping. At weekends, the streets are noisier and busier than they are on weekdays. Now, traffic jams are worse than ever before.<br><br>
+                    Although the living cost in the suburbs and the countryside is cheaper than that in the city centre, most young people prefer living in the city centre. London is richer than other cities in the United Kingdom, but it is more polluted because of the city industry, vehicles, and plenty of people.
+                </div>
+                <button class="translate-btn" onclick="toggleTranslation(this)">Mở dịch đoạn này 🌟</button>
+                <div class="translation-content">
+                    Luân Đôn là thành phố thủ đô của Vương quốc Anh. Có rất nhiều xe hơi trong thành phố này. Người dân đi mọi nơi bằng xe hơi, vì vậy giao thông ở trung tâm thành phố đông đúc và nặng nề hơn ở vùng ngoại ô. Việc tìm một nơi để đỗ xe hơi ở trung tâm khó hơn so với các khu vực khác. Các phương tiện giao thông công cộng rẻ hơn xe hơi cá nhân nhưng người dân Luân Đôn vẫn thích dùng xe riêng của họ hơn. Hơn nữa, ngày càng có nhiều khách du lịch và du khách đến Luân Đôn để tham quan hoặc mua sắm. Vào cuối tuần, đường phố ồn ào và bận rộn hơn ngày thường. Hiện nay, tình trạng tắc nghẽn giao thông đang tồi tệ hơn bao giờ hết.<br><br>
+                    Mặc dù chi phí sinh hoạt ở vùng ngoại ô và nông thôn rẻ hơn so với ở trung tâm thành phố, hầu hết những người trẻ tuổi vẫn thích sống ở trung tâm thành phố hơn. Luân Đôn giàu có hơn các thành phố khác ở Vương quốc Anh, nhưng nó bị ô nhiễm hơn do ngành công nghiệp thành phố, các loại phương tiện và mật độ người đông đúc.
+                </div>
+
+                <div class="glossary-box">
+                    <div class="glossary-title">📖 Từ vựng cốt lõi (Glossary)</div>
+                    <table class="glossary-table">
+                        <thead>
+                            <tr><th>Từ vựng</th><th>Loại từ</th><th>Nghĩa tiếng Việt</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Capital city</td><td>noun phrase</td><td>Thành phố thủ đô (A2)</td></tr>
+                            <tr><td>Heavier</td><td>adjective (comp)</td><td>Đông đúc hơn, nặng nề hơn (B1)</td></tr>
+                            <tr><td>Public transport</td><td>noun phrase</td><td>Giao thông công cộng (A2)</td></tr>
+                            <tr><td>Moreover</td><td>adverb</td><td>Hơn thế nữa, vả lại (B2)</td></tr>
+                            <tr><td>Sightseeing</td><td>noun</td><td>Hoạt động tham quan, ngắm cảnh (B1)</td></tr>
+                            <tr><td>Traffic jam</td><td>noun</td><td>Sự kẹt xe, tắc nghẽn giao thông (A2)</td></tr>
+                            <tr><td>Living cost</td><td>noun phrase</td><td>Chi phí sinh hoạt (B1)</td></tr>
+                            <tr><td>Vehicle</td><td>noun</td><td>Phương tiện giao thông, xe cộ (B2)</td></tr>
+                            <tr><td>Plenty of</td><td>determiner</td><td>Rất nhiều, phong phú dồi dào (B1)</td></tr>
+                            <tr><td>Weekday</td><td>noun</td><td>Ngày trong tuần (từ thứ 2 đến thứ 6) (A2)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL: Question Cards and Interactive System -->
+        <div class="right-panel" id="questionsContainer">
+            <!-- Questions dynamically generated by Javascript for absolute shuffle operation -->
+        </div>
+
+    </div>
+
+    <!-- Action Sticky Footer Bar -->
+    <div class="action-footer">
+        <button class="submit-btn" onclick="evaluateQuiz()">NỘP BÀI THI ✨</button>
+    </div>
+
+    <!-- Score Summary Modal Dashboard Overlay -->
+    <div class="modal-overlay" id="scoreModal">
+        <div class="modal-card">
+            <div class="modal-badge" id="modalBadge">🏆</div>
+            <div class="modal-score" id="modalScoreText">Bạn đúng: 0/0 câu</div>
+            <div class="modal-feedback" id="modalFeedbackText">Lời nhận xét hệ thống...</div>
+            <button class="modal-close-btn" onclick="closeModal()">LÀM LẠI BÀI THI 🔄</button>
+        </div>
+    </div>
+
+    <!-- Core Interactive Logic Script Handling Engine -->
+    <script>
+        // Database holding full source text structure & item banks
+        const quizData = [
+            // EX 11.1
+            {
+                id: "ex11_1_1",
+                group: "EX 11 - Passage ❶: My Wonderful Neighbourhood!",
+                question: "Question 1: Is it (1) ____ or quiet?",
+                options: [
+                    { text: "A. noise", isCorrect: false, info: "noise (noun) nghĩa là tiếng ồn, không thể đứng sau động từ tobe 'is' để song song với tính từ 'quiet'." },
+                    { text: "B. noisily", isCorrect: false, info: "noisily (adverb) là trạng từ, chỉ dùng bổ nghĩa cho động từ thường, không dùng sau tobe 'is'." },
+                    { text: "C. noisy", isCorrect: true, info: "noisy (adjective) mang nghĩa là ồn ào. Ở đây đứng sau động từ liên kết 'Is it...' và kết nối với 'quiet' bằng từ 'or' tạo sự cân bằng ngữ pháp tính từ - tính từ." },
+                    { text: "D. noised", isCorrect: false, info: "Không tồn tại từ 'noised' hợp lệ trong ngữ cảnh loại từ này." }
+                ],
+                sentenceDich: "Đoạn gốc câu hỏi: 'Nơi đó ồn ào hay yên tĩnh?' Chọn tính từ 'noisy'."
+            },
+            {
+                id: "ex11_1_2",
+                group: "EX 11 - Passage ❶: My Wonderful Neighbourhood!",
+                question: "Question 2: I often walk (2) ____ the park with my dog.",
+                options: [
+                    { text: "A. in", isCorrect: true, info: "Cụm từ cố định phổ thông trong tiếng Anh là 'walk in the park': đi bộ dạo chơi bên trong không gian công viên." },
+                    { text: "B. on", isCorrect: false, info: "on nghĩa là trên bề mặt phẳng tiếp xúc, không phù hợp đi với không gian bao quanh của một 'park'." },
+                    { text: "C. along", isCorrect: false, info: "along là đi dọc theo (con đường, bờ sông). Dù có thể dùng 'walk along the path in the park', nhưng đi trực tiếp với 'the park' thì giới từ 'in' chuẩn nhất." },
+                    { text: "D. at", isCorrect: false, info: "at dùng chỉ một điểm mốc vị trí chính xác cụ thể nhỏ, không dùng cho việc đi bộ tận hưởng trong lòng công viên." }
+                ],
+                sentenceDich: "Dịch: 'Mình thường đi bộ trong công viên với chú chó của mình.' Cụm từ chuẩn: in the park."
+            },
+            {
+                id: "ex11_1_3",
+                group: "EX 11 - Passage ❶: My Wonderful Neighbourhood!",
+                question: "Question 3: My neighbourhood is also (3) ____ than the city center...",
+                options: [
+                    { text: "A. good", isCorrect: false, info: "good là tính từ nguyên mẫu, không dùng trước cấu trúc so sánh hơn có 'than'." },
+                    { text: "B. better", isCorrect: true, info: "better là tính từ so sánh hơn bất quy tắc của từ 'good'. Cấu trúc: 'is also better than...' (tốt hơn, tuyệt vời hơn)." },
+                    { text: "C. best", isCorrect: false, info: "best là tính từ so sánh nhất, bắt buộc phải có mạo từ 'the' đứng trước và không dùng kèm cấu trúc 'than'." },
+                    { text: "D. well", isCorrect: false, info: "well đóng vai trò là một trạng từ, không dùng làm tính từ so sánh sau tobe đứng trước 'than' ở đây." }
+                ],
+                sentenceDich: "Dịch: 'Khu phố của mình cũng tuyệt vời hơn trung tâm thành phố'. Phải chọn dạng so sánh hơn 'better'."
+            },
+            {
+                id: "ex11_1_4",
+                group: "EX 11 - Passage ❶: My Wonderful Neighbourhood!",
+                question: "Question 4: Do you have a favourite place (4) ____ your neighbourhood?",
+                options: [
+                    { text: "A. library", isCorrect: false, info: "Không hợp nghĩa, vì câu trước tác giả đã dẫn chứng về một địa điểm cụ thể là 'art gallery'." },
+                    { text: "B. supermarket", isCorrect: false, info: "Không có siêu thị nào được đề cập trong chuỗi lập luận của đoạn 1." },
+                    { text: "C. cinema", isCorrect: false, info: "Không có rạp chiếu phim trong ngữ cảnh bài này." },
+                    { text: "D. art gallery", isCorrect: true, info: "Dựa hoàn toàn vào câu chứng minh ngay phía trước: 'because it has a beautiful art gallery'. Do đó, địa điểm yêu thích đang được nhắc đến gián tiếp chính là art gallery." }
+                ],
+                sentenceDich: "Dịch: 'Bạn có địa điểm yêu thích nào trong khu phố của mình không?' Dựa trên chi tiết phòng triển lãm tranh ở câu trước."
+            },
+
+            // EX 11.2
+            {
+                id: "ex11_2_1",
+                group: "EX 11 - Passage ❷: Our Neighborhood Charity Shop!",
+                question: "Question 1: It’s very (1) __________ for everyone.",
+                options: [
+                    { text: "A. convenience", isCorrect: false, info: "convenience là danh từ, sau trạng từ chỉ mức độ 'very' bắt buộc phải dùng một tính từ." },
+                    { text: "B. convenient", isCorrect: true, info: "convenient (adjective) nghĩa là tiện lợi. Rất phù hợp với cấu trúc 'It's very convenient for everyone' (Nó rất tiện lợi cho mọi người)." },
+                    { text: "C. conveniently", isCorrect: false, info: "convenently là trạng từ, không đứng sau tobe 'is' làm vị ngữ chính bổ nghĩa cho chủ từ 'It'." },
+                    { text: "D. unconvenient", isCorrect: false, info: "Từ vựng này viết sai tiền tố phủ định. Dạng phủ định chuẩn xác phải là 'inconvenient'." }
+                ],
+                sentenceDich: "Dịch: 'Nó rất tiện lợi cho tất cả mọi người.' Chọn tính từ bổ nghĩa convenient."
+            },
+            {
+                id: "ex11_2_2",
+                group: "EX 11 - Passage ❷: Our Neighborhood Charity Shop!",
+                question: "Question 2: Our shop is (2) __________ than a regular shop...",
+                options: [
+                    { text: "A. cheap", isCorrect: false, info: "cheap là tính từ ngắn nguyên mẫu, có 'than' phía sau nên bắt buộc phải chia dạng so sánh hơn." },
+                    { text: "B. cheaper", isCorrect: true, info: "cheaper là dạng so sánh hơn của tính từ ngắn 'cheap' (cheap + er). Kết hợp với 'than' ở phía sau thành 'cheaper than' (rẻ hơn)." },
+                    { text: "C. cheapest", isCorrect: false, info: "cheapest là dạng so sánh nhất, sai cấu trúc câu so sánh hơn." },
+                    { text: "D. more cheap", isCorrect: false, info: "Tính từ ngắn 'cheap' không dùng cấu trúc thêm 'more' phía trước." }
+                ],
+                sentenceDich: "Dịch: 'Cửa hàng của chúng tôi rẻ hơn một cửa hàng thông thường'. Dẫn chứng: 'prices are lower'."
+            },
+            {
+                id: "ex11_2_3",
+                group: "EX 11 - Passage ❷: Our Neighborhood Charity Shop!",
+                question: "Question 3: You can find unique items (3) __________ a good price.",
+                options: [
+                    { text: "A. in", isCorrect: false, info: "Giới từ 'in' không đi kèm với cụm từ chỉ giá cả tiền nong đứng sau." },
+                    { text: "B. on", isCorrect: false, info: "Giới từ 'on' không đi với 'a good price'." },
+                    { text: "C. at", isCorrect: true, info: "Cụm từ cố định chỉ mức giá là 'at a good price' hoặc 'at a price' (với một mức giá tốt/phải chăng)." },
+                    { text: "D. for", isCorrect: false, info: "Mặc dù 'for' có thể dùng để mua cái gì với giá tiền nào (buy something for $5), nhưng đi với cụm danh từ 'a good price' thì giới từ 'at' là thành ngữ chính xác nhất." }
+                ],
+                sentenceDich: "Dịch: 'Bạn có thể tìm thấy những món đồ độc đáo với giá tốt.' Chọn giới từ 'at'."
+            },
+            {
+                id: "ex11_2_4",
+                group: "EX 11 - Passage ❷: Our Neighborhood Charity Shop!",
+                question: "Question 4: Come and support our community (4) __________!",
+                options: [
+                    { text: "A. effort", isCorrect: false, info: "effort là nỗ lực cá nhân, không đi hợp nghĩa tối ưu với danh từ ghép ở cuối lời kêu gọi hành động này." },
+                    { text: "B. initiative", isCorrect: false, info: "initiative là sáng kiến mới, không thích hợp nhất bằng mục đích hoạt động xã hội từ thiện lâu dài." },
+                    { text: "C. cause", isCorrect: true, info: "cause (danh từ) mang ý nghĩa là một mục tiêu cao cả, phong trào, hoặc việc nghĩa mang lợi ích cho xã hội. 'Community cause' nghĩa là phong trào/việc nghĩa vì cộng đồng." },
+                    { text: "D. problem", isCorrect: false, info: "problem là vấn đề tiêu cực, chúng ta không thể đi kêu gọi 'hỗ trợ vấn đề' của cộng đồng một cách vô lý." }
+                ],
+                sentenceDich: "Dịch: 'Hãy đến và hỗ trợ chiến dịch / việc nghĩa vì cộng đồng của chúng tôi nào!' Chọn cause."
+            },
+
+            // EX 11.3
+            {
+                id: "ex11_3_1",
+                group: "EX 11 - Passage ❸: The Pedestrian Subway",
+                question: "Question 1: They make crossing busy streets much ______ (1).",
+                options: [
+                    { text: "A. easy", isCorrect: false, info: "easy là tính từ nguyên thể. Cấu trúc so sánh hơn được kích hoạt nhờ phó từ nhấn mạnh 'much' + [Comparative Adj] nhằm so sánh việc dùng hầm và việc tự băng qua đường nguy hiểm." },
+                    { text: "B. easier", isCorrect: true, info: "easier là tính từ so sánh hơn của 'easy'. Cấu trúc: make + something + Adj (so sánh hơn nhấn mạnh bằng much) -> 'make crossing busy streets much easier' (giúp việc băng qua đường dễ dàng hơn nhiều)." },
+                    { text: "C. easily", isCorrect: false, info: "easily là trạng từ, không dùng sau cấu trúc tân ngữ của hệ động từ tác động 'make + O + Adj'." },
+                    { text: "D. easiness", isCorrect: false, info: "easiness là danh từ sự dễ dàng, hoàn toàn sai ngữ pháp." }
+                ],
+                sentenceDich: "Dịch: 'Chúng giúp việc băng qua những con phố bận rộn trở nên dễ dàng hơn nhiều.' Chọn easier."
+            },
+            {
+                id: "ex11_3_2",
+                group: "EX 11 - Passage ❸: The Pedestrian Subway",
+                question: "Question 2: and it's even ______ (2) than the old one downtown.",
+                options: [
+                    { text: "A. good", isCorrect: false, info: "Từ 'good' không thể kết hợp với từ so sánh 'than' phía sau." },
+                    { text: "B. better", isCorrect: true, info: "better là dạng so sánh hơn của 'good'. 'even better than' nghĩa là thậm chí còn tốt hơn cả cái cũ dưới trung tâm." },
+                    { text: "C. best", isCorrect: false, info: "best là so sánh nhất, không đi với 'than'." },
+                    { text: "D. well", isCorrect: false, info: "well là trạng từ, không phù hợp cấu trúc vị ngữ bổ từ này." }
+                ],
+                sentenceDich: "Dịch: 'và nó thậm chí còn tốt hơn hầm cũ ở trung tâm thành phố.' Chọn better."
+            },
+            {
+                id: "ex11_3_3",
+                group: "EX 11 - Passage ❸: The Pedestrian Subway",
+                question: "Question 3: You can find it ______ (3) the big supermarket.",
+                options: [
+                    { text: "A. on", isCorrect: false, info: "Không thể nằm 'trên bề mặt' của siêu thị." },
+                    { text: "B. in", isCorrect: false, info: "Hầm bộ hành giao thông công cộng nằm dưới lòng đất cạnh siêu thị chứ không nằm 'bên trong lòng' ngôi nhà siêu thị." },
+                    { text: "C. near", isCorrect: true, info: "near (giới từ chỉ vị trí) nghĩa là ở gần, kế bên. Rất hợp lý: 'You can find it near the big supermarket' (Bạn có thể tìm thấy nó ở gần siêu thị lớn)." },
+                    { text: "D. to", isCorrect: false, info: "Giới từ 'to' đơn độc không chỉ vị trí cố định tĩnh tại, nếu dùng 'next to' thì mới chính xác." }
+                ],
+                sentenceDich: "Dịch: 'Bạn có thể tìm thấy nó ở gần siêu thị lớn.' Chọn giới từ near."
+            },
+            {
+                id: "ex11_3_4",
+                group: "EX 11 - Passage ❸: The Pedestrian Subway",
+                question: "Question 4: Using these subways is a great example of ______ (4) urban planning.",
+                options: [
+                    { text: "A. old", isCorrect: false, info: "Hầm đi bộ hiện đại an toàn không phải biểu tượng của sự cũ kỹ lạc hậu." },
+                    { text: "B. new", isCorrect: false, info: "Từ 'new' dịch là mới nhưng xét về thuật ngữ chuyên ngành kiến trúc hạ tầng xã hội thì không chuyên nghiệp bằng từ 'modern'." },
+                    { text: "C. traditional", isCorrect: false, info: "traditional nghĩa là truyền thống, hầm bộ hành đô thị không thuộc về yếu tố văn hóa truyền thống cổ xưa." },
+                    { text: "D. modern", isCorrect: true, info: "modern urban planning có nghĩa là quy hoạch đô thị hiện đại. Đây là cụm thuật ngữ đi liền mạch với nhau một cách tự nhiên nhất." }
+                ],
+                sentenceDich: "Dịch: 'Việc sử dụng các hầm bộ hành này là một ví dụ tuyệt vời về quy hoạch đô thị hiện đại.' Chọn modern."
+            },
+
+            // EX 12.1
+            {
+                id: "ex12_1_1",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 1: there aren’t many cars so the streets are very (1) ______.",
+                options: [
+                    { text: "A. dirty", isCorrect: false, info: "dirty nghĩa là bẩn thỉu, mâu thuẫn hoàn toàn với mệnh đề nguyên nhân 'không có nhiều xe hơi' và 'thanh bình'." },
+                    { text: "B. noisy", isCorrect: false, info: "noisy là ồn ào, trong khi câu trước khẳng định 'It is very peaceful and quiet' và không có nhiều xe." },
+                    { text: "C. clean", isCorrect: true, info: "clean có nghĩa là sạch sẽ. Vì đường phố có nhiều cây xanh lớn và rất ít phương tiện giao thông (cars) nên đường phố rất sạch sẽ, thoáng đãng." },
+                    { text: "D. dark", isCorrect: false, info: "dark là tối tăm, không liên quan đến mật độ giao thông của xe cộ." }
+                ],
+                sentenceDich: "Dịch: 'Ở đây có nhiều cây lớn và không có nhiều xe hơi nên đường phố rất sạch sẽ.' Chọn clean."
+            },
+            {
+                id: "ex12_1_2",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 2: There’s a park (2) ______ my neighbourhood...",
+                options: [
+                    { text: "A. on", isCorrect: false, info: "on không dùng cho một phạm vi ranh giới khu dân cư phức hợp." },
+                    { text: "B. in", isCorrect: true, info: "Cấu trúc giới từ không gian: 'in my neighbourhood' (ở bên trong khu vực sống của tôi)." },
+                    { text: "C. at", isCorrect: false, info: "at không dùng cho phạm vi một vùng/khu phố rộng lớn." },
+                    { text: "D. for", isCorrect: false, info: "for nghĩa là dành cho, không chỉ địa điểm." }
+                ],
+                sentenceDich: "Dịch: 'Có một công viên ở trong khu phố của mình'. Chọn giới từ không gian 'in'."
+            },
+            {
+                id: "ex12_1_3",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 3: There aren’t any restaurants, bars or cinemas (3) ______ my road.",
+                options: [
+                    { text: "A. in", isCorrect: false, info: "in dùng với tên đường kèm số nhà hoặc không gian khép kín, đối với từ 'road' thông thường ta dùng giới từ bề mặt tiếp lộ." },
+                    { text: "B. at", isCorrect: false, info: "at phải đi kèm với số nhà cụ thể trên con đường đó." },
+                    { text: "C. on", isCorrect: true, info: "Giới từ đi với đường sá: 'on my road' hoặc 'on the street' (ở trên con đường của tôi)." },
+                    { text: "D. by", isCorrect: false, info: "by mang nghĩa là bên cạnh con đường, không thể hiện việc các hàng quán nằm dọc tọa lạc trên trục đường đó." }
+                ],
+                sentenceDich: "Dịch: 'Không có bất kỳ nhà hàng, quán bar hay rạp chiếu phim nào trên con đường của mình cả.' Chọn giới từ 'on'."
+            },
+            {
+                id: "ex12_1_4",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 4: you can find a lot of things to (4) ______.",
+                options: [
+                    { text: "A. buy", isCorrect: false, info: "buy chỉ là mua sắm, quá hẹp vì Phố Chính có nhiều hoạt động giải trí tổng hợp khác." },
+                    { text: "B. see", isCorrect: false, info: "see là nhìn ngắm, chưa bao quát đầy đủ hành vi hưởng thụ dịch vụ." },
+                    { text: "C. do", isCorrect: true, info: "Cụm từ tổng quát: 'things to do' (những việc để làm, hoạt động để trải nghiệm, vui chơi giải trí giải tỏa căng thẳng)." },
+                    { text: "D. eat", isCorrect: false, info: "eat chỉ là ăn uống, không bao gồm các dịch vụ vui chơi khác." }
+                ],
+                sentenceDich: "Dịch: 'bạn có thể tìm thấy rất nhiều thứ để làm/trải nghiệm.' Chọn cụm từ thông dụng 'things to do'."
+            },
+            {
+                id: "ex12_1_5",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 5: There is no (5) ______ [because it is very safe].",
+                options: [
+                    { text: "A. people", isCorrect: false, info: "Nếu không có con người thì không thể là khu phố đông vui hạnh phúc." },
+                    { text: "B. crime", isCorrect: true, info: "crime nghĩa là tội phạm. Vế trước giải thích lý do: 'because it is very safe' (bởi vì nó rất an toàn). Khu phố an toàn đồng nghĩa với việc 'There is no crime' (Không có tội phạm)." },
+                    { text: "C. noise", isCorrect: false, info: "Không có tiếng ồn chưa chắc đã chứng minh trực tiếp tối đa cho chữ 'safe' (an toàn)." },
+                    { text: "D. traffic", isCorrect: false, info: "Không có giao thông là vô lý vì khu ngoại ô vẫn có ít xe di chuyển." }
+                ],
+                sentenceDich: "Dịch: 'Khu phố rất an toàn. Không hề có tội phạm'. Mối liên hệ logic giữa safe và crime."
+            },
+            {
+                id: "ex12_1_6",
+                group: "EX 12 - Passage ❶: My Neighbourhood (Nick)",
+                question: "Question 6: and all of my neighbours take care of (6) ______.",
+                options: [
+                    { text: "A. himself", isCorrect: false, info: "himself là đại từ phản thân số ít, không tương thích với chủ từ số nhiều 'all of my neighbours'." },
+                    { text: "B. herself", isCorrect: false, info: "herself là số ít nữ giới, sai ngữ pháp." },
+                    { text: "C. themselves", isCorrect: false, info: "themselves nghĩa là tự chăm sóc bản thân họ, nếu tự ai nấy lo thì không tạo nên tính gắn kết cộng đồng nghĩa tình ở câu trên." },
+                    { text: "D. each other", isCorrect: true, info: "each other có nghĩa là lẫn nhau, nhau. 'take care of each other' có nghĩa là tất cả những người hàng xóm cùng quan tâm, chăm sóc lẫn nhau, tạo nên môi trường sống lý tưởng." }
+                ],
+                sentenceDich: "Dịch: 'và tất cả hàng xóm của mình đều quan tâm lẫn nhau.' Chọn đại từ chỉ sự tương tác qua lại 'each other'."
+            },
+
+            // EX 12.2
+            {
+                id: "ex12_2_1",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 1: We both live in the countryside (1) _______ our family.",
+                options: [
+                    { text: "A. with", isCorrect: true, info: "Cấu trúc: live with someone (sống chung cùng với ai đó). 'live with our family' nghĩa là sống cùng với gia đình của chúng tôi." },
+                    { text: "B. of", isCorrect: false, info: "of biểu thị tính sở hữu, hoàn toàn sai ngữ pháp khi ráp vào cấu trúc này." },
+                    { text: "C. for", isCorrect: false, info: "for nghĩa là dành cho, không đúng nghĩa ngữ cảnh sống chung." },
+                    { text: "D. at", isCorrect: false, info: "at là tại một điểm vị trí, không dùng kết hợp liên đới 'at family'." }
+                ],
+                sentenceDich: "Dịch: 'Cả hai chúng mình đều sống ở vùng nông thôn cùng với gia đình của mình.' Chọn với 'with'."
+            },
+            {
+                id: "ex12_2_2",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 2: He often helps (2) _______ to look after vegetables...",
+                options: [
+                    { text: "A. him", isCorrect: false, info: "him là tân ngữ số ít nam giới, không thay thế được cho danh từ số nhiều 'John's parents'." },
+                    { text: "B. they", isCorrect: false, info: "they là đại từ đóng vai trò chủ từ, ở đây đứng sau động từ tác động 'helps' nên bắt buộc phải chọn một đại từ đóng vai trò Tân ngữ (Object)." },
+                    { text: "C. them", isCorrect: true, info: "them là đại từ đóng vai trò tân ngữ số nhiều, được dùng để thay thế cho danh từ 'John's parents' (bố mẹ của John) đã được nhắc đến ở câu trước." },
+                    { text: "D. her", isCorrect: false, info: "her là số ít nữ giới, sai ngữ pháp." }
+                ],
+                sentenceDich: "Dịch: 'Cậu ấy thường xuyên giúp họ (bố mẹ) chăm sóc rau củ'. Tân ngữ phù hợp là them."
+            },
+            {
+                id: "ex12_2_3",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 3: He likes (3) _______ vegetables and flowers.",
+                options: [
+                    { text: "A. growing", isCorrect: true, info: "Sau động từ chỉ sở thích như 'like', động từ đi kèm có thể chia ở dạng V-ing để diễn tả một sở thích lâu dài, tự nhiên. 'likes growing' có nghĩa là thích trồng trọt." },
+                    { text: "B. grows", isCorrect: false, info: "grows là động từ đã chia thì hiện tại đơn số ít, không thể đứng làm tân ngữ trực tiếp sau động từ 'like'." },
+                    { text: "C. to grow", isCorrect: false, info: "Mặc dù 'like + to V' vẫn đúng ngữ pháp thể hiện một lựa chọn/thói quen ngắn hạn, nhưng xét các bài tập phổ thông tiểu học/trung học cơ sở thì đáp án V-ing 'growing' luôn là phương án ưu tiên hàng đầu, và trong đáp án chính thức hệ đề này ưu tiên dạng danh động từ ổn định hành vi này." },
+                    { text: "D. grow", isCorrect: false, info: "grow là động từ nguyên mẫu không to, không đứng sau động từ 'like'." }
+                ],
+                sentenceDich: "Dịch: 'Cậu ấy thích trồng rau và hoa.' Chọn động từ thêm -ing làm danh động từ sau like."
+            },
+            {
+                id: "ex12_2_4",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 4: He thinks farming (4) _______ exciting and interesting.",
+                options: [
+                    { text: "A. are", isCorrect: false, info: "are dùng cho danh từ số nhiều." },
+                    { text: "B. be", isCorrect: false, info: "be là dạng nguyên thể, không tự đứng làm vị ngữ trực tiếp chia ở thì hiện tại đơn sau danh động từ chủ ngữ." },
+                    { text: "C. is", isCorrect: true, info: "Chủ ngữ của mệnh đề phụ này là 'farming' (việc làm nông). Đây là một Danh động từ (Gerund) làm chủ ngữ ngôi số ít, vì vậy động từ tobe đi kèm phải chia là 'is'." },
+                    { text: "D. has", isCorrect: false, info: "has nghĩa là có, không đi với cấu trúc tính từ đôi 'exciting and interesting' phía sau." }
+                ],
+                sentenceDich: "Dịch: 'Cậu ấy nghĩ công việc làm nông rất thú vị và hấp dẫn.' Chủ từ farming số ít đi với is."
+            },
+            {
+                id: "ex12_2_5",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 5: Now he (5) _______ biology hard at school.",
+                options: [
+                    { text: "A. study", isCorrect: false, info: "Chủ từ 'he' là ngôi thứ ba số ít, không đi với động từ nguyên mẫu 'study'." },
+                    { text: "B. studied", isCorrect: false, info: "studied là thì quá khứ đơn, sai lệch mốc thời gian." },
+                    { text: "C. is studying", isCorrect: true, info: "Trạng ngữ chỉ thời gian 'Now' (Hiện tại, ngay bây giờ) là dấu hiệu nhận biết kinh điển của thì Hiện tại tiếp diễn (Present Continuous). Cấu trúc: S + am/is/are + V-ing -> 'he is studying'." },
+                    { text: "D. will study", isCorrect: false, info: "will study là thì tương lai đơn, không đi với trạng từ chỉ hành động đang diễn ra 'Now'." }
+                ],
+                sentenceDich: "Dịch: 'Hiện tại cậu ấy đang học tập chăm chỉ môn sinh học ở trường.' Dấu hiệu Now dùng hiện tại tiếp diễn."
+            },
+            {
+                id: "ex12_2_6",
+                group: "EX 12 - Passage ❷: My Neighbour John",
+                question: "Question 6: He wants to be good at biology (6) _______ it's important for his future job.",
+                options: [
+                    { text: "A. or", isCorrect: false, info: "or nghĩa là hoặc, chỉ sự lựa chọn loại trừ." },
+                    { text: "B. because", isCorrect: true, info: "Liên từ 'because' dùng để kết nối mệnh đề chỉ nguyên nhân, lý do. Vế sau 'it's important...' giải thích nguyên nhân vì sao cậu ấy muốn học giỏi môn sinh học." },
+                    { text: "C. but", isCorrect: false, info: "but nghĩa là nhưng, dùng nối hai vế tương phản lập luận nghịch nhau." },
+                    { text: "D. and", isCorrect: false, info: "and dùng để nối hai vế bổ sung thông tin tương đồng, không mang tính giải thích nguyên nhân." }
+                ],
+                sentenceDich: "Dịch: 'Cậu ấy muốn giỏi môn sinh học vì nó rất quan trọng cho công việc tương lai'. Chọn because."
+            },
+
+            // EX 12.3
+            {
+                id: "ex12_3_1",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 1: I live (1) _______ Newquay.",
+                options: [
+                    { text: "A. on", isCorrect: false, info: "on không đi với tên thị trấn/thành phố." },
+                    { text: "B. in", isCorrect: true, info: "Quy tắc giới từ chỉ nơi chốn: Sử dụng 'in' trước tên của các thị trấn, thành phố, quốc gia rộng lớn. Do đó, 'in Newquay' là đáp án đúng duy nhất." },
+                    { text: "C. at", isCorrect: false, info: "at dùng cho địa điểm chính xác có số nhà hoặc địa chỉ cụ thể nhỏ." },
+                    { text: "D. by", isCorrect: false, info: "by Newquay nghĩa là bên cạnh Newquay, sai nghĩa vì tác giả sống định cư trực tiếp tại lòng thị trấn này." }
+                ],
+                sentenceDich: "Dịch: 'Mình sống ở thị trấn Newquay.' Giới từ đi với địa danh thành phố/thị trấn là in."
+            },
+            {
+                id: "ex12_3_2",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 2: where you can learn (2) _______ to surf.",
+                options: [
+                    { text: "A. what", isCorrect: false, info: "learn what to do (học cái gì để làm), ở đây 'surf' là hành động cụ thể rồi nên không dùng what." },
+                    { text: "B. which", isCorrect: false, info: "which chỉ sự lựa chọn giữa các vật thể, sai cấu trúc tu từ." },
+                    { text: "C. how", isCorrect: true, info: "Cấu trúc phổ biến: 'learn how to do something' (học cách làm một việc gì đó). Ở đây là 'learn how to surf' (học cách lướt sóng)." },
+                    { text: "D. where", isCorrect: false, info: "where chỉ nơi chốn, không đúng nghĩa học phương pháp kỹ năng." }
+                ],
+                sentenceDich: "Dịch: 'nơi bạn có thể học cách lướt sóng.' Chọn cấu trúc nghi vấn từ 'how to V'."
+            },
+            {
+                id: "ex12_3_3",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 3: there are lots of other things to (3) _______ as well as surfing.",
+                options: [
+                    { text: "A. make", isCorrect: false, info: "make thường mang nghĩa chế tạo, tạo ra sản phẩm vật lý cụ thể." },
+                    { text: "B. play", isCorrect: false, info: "play đi với nhạc cụ hoặc môn thể thao đồng đội có bóng, không bao hàm tất cả hoạt động chung." },
+                    { text: "C. do", isCorrect: true, info: "Cụm danh động từ cố định: 'things to do' (những việc, hoạt động hành vi để thực hiện, trải nghiệm)." },
+                    { text: "D. have", isCorrect: false, info: "have là có, không tạo thành ngữ có nghĩa thích đáng." }
+                ],
+                sentenceDich: "Dịch: 'có rất nhiều điều khác để làm bên cạnh việc lướt sóng.' Chọn động từ tổng quát 'do'."
+            },
+            {
+                id: "ex12_3_4",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 4: If you (4) _______ animals, you can visit the Blue Reef Aquarium...",
+                options: [
+                    { text: "A. enjoy", isCorrect: false, info: "enjoy thường ưu tiên đi với danh động từ chỉ hành động trải nghiệm (V-ing) hoặc tận hưởng không khí, đi trực tiếp danh từ loài vật thì dùng like tự nhiên hơn." },
+                    { text: "B. like", isCorrect: true, info: "like + Noun (thích cái gì/ai đó). 'If you like animals' (Nếu bạn yêu thích động vật), rất đơn giản, mạch lạc và là cấu trúc nền tảng." },
+                    { text: "C. want", isCorrect: false, info: "want nghĩa là muốn sở hữu, không hợp ngữ cảnh thưởng ngoạn thủy cung." },
+                    { text: "D. prefer", isCorrect: false, info: "prefer nghĩa là thích cái gì hơn cái gì, đòi hỏi cấu trúc so sánh đối chiếu." }
+                ],
+                sentenceDich: "Dịch: 'Nếu bạn yêu thích động vật, bạn có thể ghé thăm Thủy cung Blue Reef'. Chọn động từ nguyên mẫu 'like'."
+            },
+            {
+                id: "ex12_3_5",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 5: There are lots of other attractions (5) _______ like mini golf...",
+                options: [
+                    { text: "A. also", isCorrect: false, info: "also (cũng) thường đứng giữa câu sau tobe hoặc trước động từ thường, không đứng ở vị trí cuối cụm danh từ liệt kê như thế này." },
+                    { text: "B. too", isCorrect: true, info: "too (adverb) nghĩa là 'cũng vậy, cũng thế', thường đứng ở cuối mệnh đề hoặc cuối câu để bổ sung thông tin đồng thuận gia tăng." },
+                    { text: "C. very", isCorrect: false, info: "very là trạng từ chỉ mức độ (rất), bắt buộc đi trước tính từ/trạng từ khác." },
+                    { text: "D. much", isCorrect: false, info: "much nghĩa là nhiều, không đứng cuối câu bổ nghĩa đồng thuận." }
+                ],
+                sentenceDich: "Dịch: 'Còn có rất nhiều điểm tham quan khác nữa như chơi gôn mi-ni và bowling.' Chọn trạng từ bổ trợ 'too'."
+            },
+            {
+                id: "ex12_3_6",
+                group: "EX 12 - Passage ❸: Newquay: A Great Place to Visit!",
+                question: "Question 6: Come and see for (6) _______!",
+                options: [
+                    { text: "A. you", isCorrect: false, info: "you là đại từ nhân xưng thông thường, không tạo thành cụm thành ngữ tự mình trải nghiệm." },
+                    { text: "B. yourself", isCorrect: true, info: "Thành ngữ cố định (Idiom): 'Come and see for yourself!' mang ý nghĩa mời gọi, thúc giục: Hãy đến và tự mình mắt thấy tai nghe, tự mình trải nghiệm kiểm chứng đi nào!" },
+                    { text: "C. them", isCorrect: false, info: "them là họ, sai mục tiêu hướng tới người đọc trực diện." },
+                    { text: "D. ourselves", isCorrect: false, info: "ourselves là chính chúng tôi, không phù hợp cấu trúc câu mệnh lệnh hướng tới đối phương." }
+                ],
+                sentenceDich: "Dịch: 'Hãy đến và tự mình trải nghiệm xem nhé!' Chọn thành ngữ 'see for yourself'."
+            },
+
+            // EX 13.1 (Reading Comprehension MCQs)
+            {
+                id: "ex13_1_q1",
+                group: "EX 13 - Reading ❶: City vs. Country Life",
+                question: "Question 1: You should live in the city if __________.",
+                options: [
+                    { text: "A. you have asthma", isCorrect: false, info: "Sai, người bị hen suyễn (asthma) được khuyên nên sống ở nông thôn (country lifestyle)." },
+                    { text: "B. you have problems with breathing diseases", isCorrect: false, info: "Sai, các bệnh về đường hô hấp cần không khí trong lành ở nông thôn." },
+                    { text: "C. you want to meet people from different social status", isCorrect: true, info: "Đúng hoàn toàn dựa vào câu mở đầu của Đoạn văn: 'If you are the type of person who loves to meet many different people from different cultures and social status, then the city is better for you.'" },
+                    { text: "D. you want your children to run around in open environments", isCorrect: false, info: "Sai, việc chạy nhảy tự do ở không gian an toàn mở là đặc trưng ưu điểm nông thôn ở cuối bài." }
+                ],
+                sentenceDich: "Dẫn chứng câu 1 đoạn 1: Muốn gặp gỡ người thuộc nhiều tầng lớp xã hội khác nhau thì nên chọn sống ở thành phố."
+            },
+            {
+                id: "ex13_2_q2",
+                group: "EX 13 - Reading ❶: City vs. Country Life",
+                question: "Question 2: The country life is better for you if __________.",
+                options: [
+                    { text: "A. you love to meet people from different cultures", isCorrect: false, info: "Gặp gỡ nhiều nền văn hóa là đặc trưng ưu thế của thành phố lớn." },
+                    { text: "B. you want a busy social life", isCorrect: false, info: "Đời sống xã hội bận rộn náo nhiệt thuộc về thành phố." },
+                    { text: "C. you would like to work for international companies", isCorrect: false, info: "Bài đọc không nhắc đến cụm từ công ty quốc tế." },
+                    { text: "D. you are really sensitive to pollution", isCorrect: true, info: "Đúng chính xác. Dẫn chứng ở câu đầu của đoạn 2: 'If you have asthma or you are really sensitive to pollution, then the country lifestyle is best for you.'" }
+                ],
+                sentenceDich: "Dẫn chứng câu 1 đoạn 2: Người nhạy cảm với ô nhiễm môi trường nên chọn lối sống nông thôn."
+            },
+            {
+                id: "ex13_1_q3",
+                group: "EX 13 - Reading ❶: City vs. Country Life",
+                question: "Question 3: There is much less pollution in the country than in the city because",
+                options: [
+                    { text: "A. everything is so centralized in the city", isCorrect: false, info: "Đây là lý do giải thích vì sao dân số đông đúc ở thành phố, không phải nguyên nhân trực tiếp của việc ít ô nhiễm ở nông thôn." },
+                    { text: "B. there are not as many cars in the country as in the city", isCorrect: true, info: "Đúng. Trong đoạn 2 có viết: 'In the country there is much less pollution because there are fewer cars, traffic and industrial plants...' Từ 'fewer cars' đồng nghĩa với cấu trúc so sánh 'not as many cars as'." },
+                    { text: "C. the distance between other people is harder", isCorrect: false, info: "Khoảng cách địa lý xa xôi làm giảm tiện lợi giao tiếp xã hội, không quyết định trực tiếp việc ô nhiễm." },
+                    { text: "D. there are much more trees in the city", isCorrect: false, info: "Thông tin sai sự thật, nông thôn mới có nhiều cây xanh hơn thành phố." }
+                ],
+                sentenceDich: "Dịch: Ở nông thôn ít ô nhiễm hơn thành phố vì không có nhiều xe hơi bằng thành phố (fewer cars)."
+            },
+            {
+                id: "ex13_1_q4",
+                group: "EX 13 - Reading ❶: City vs. Country Life",
+                question: "Question 4: The word 'plants' in the passage means",
+                options: [
+                    { text: "A. factories", isCorrect: true, info: "Trong tiếng Anh chuyên ngành kinh tế - xã hội, danh từ 'industrial plants' có nghĩa là các nhà máy công nghiệp, xưởng chế biến đồ sộ. Nó đồng nghĩa tuyệt đối với từ 'factories'." },
+                    { text: "B. trees", isCorrect: false, info: "Dù 'plant' bình thường là thực vật/cây xanh, nhưng đi trong cụm từ tiêu cực gây ô nhiễm 'industrial plants' (nhà máy công nghiệp) thì không thể mang nghĩa là cây xanh được." },
+                    { text: "C. buildings", isCorrect: false, info: "buildings là tòa nhà chung chung, không sát nghĩa chuyên dụng bằng factories." },
+                    { text: "D. restaurants", isCorrect: false, info: "restaurants là nhà hàng ăn uống, không liên đới trực tiếp khái niệm công nghiệp nặng sản xuất." }
+                ],
+                sentenceDich: "Phân tích ngữ cảnh ngữ nghĩa: Cụm 'industrial plants' đồng nghĩa với xí nghiệp, nhà máy phát thải độc hại (factories)."
+            },
+            {
+                id: "ex13_1_q5",
+                group: "EX 13 - Reading ❶: City vs. Country Life",
+                question: "Question 5: Which of the following statements is NOT true?",
+                options: [
+                    { text: "A. The population in the city is concentrated.", isCorrect: false, info: "Thông tin này ĐÚNG với bài đọc ('The city's population is also more concentrated'), nên không thể chọn phương án này cho câu hỏi tìm thông tin SAI." },
+                    { text: "B. You have higher opportunities of meeting people in the city.", isCorrect: false, info: "Thông tin này ĐÚNG ('you also have a higher chance of meeting people')." },
+                    { text: "C. There is more traffic in the country than in the city.", isCorrect: true, info: "Đây là thông tin SAI (NOT TRUE). Bài đọc nêu rõ ở nông thôn có 'fewer cars, traffic' (ít xe cộ và giao thông hơn), do đó nói nông thôn có nhiều giao thông hơn thành phố là hoàn toàn bịa đặt nghịch lý." },
+                    { text: "D. The environment in the country is safer than in the city.", isCorrect: false, info: "Thông tin này ĐÚNG vì đoạn cuối ghi nhận nông thôn là 'open safe environments'." }
+                ],
+                sentenceDich: "Yêu cầu tìm thông tin SAI: Khẳng định 'Giao thông ở nông thôn đông hơn thành phố' là sai hoàn toàn so với văn bản gốc."
+            },
+
+            // EX 13.2
+            {
+                id: "ex13_2_q1",
+                group: "EX 13 - Reading ❷: NOISY NEIGHBOURS",
+                question: "Question 1: What happened in Pilton, Somerset every summer?",
+                options: [
+                    { text: "A. The villagers litter the streets.", isCorrect: false, info: "Khách tham quan lễ hội xả rác chứ không phải dân làng bản địa vứt rác." },
+                    { text: "B. There is a pop music festival", isCorrect: true, info: "Đúng chính xác. Dẫn chứng ngay câu đầu tiên: '...the village is full of people of all ages who comes here for the annual Glastonbury pop music festival.'" },
+                    { text: "C. There are many villagers.", isCorrect: false, info: "Dân làng luôn ở đó cố định, sự biến động mùa hè là do lượng khách khổng lồ đổ về." },
+                    { text: "D. The neighbours are noisy", isCorrect: false, info: "Tiếng ồn đến từ người hâm mộ lễ hội âm nhạc vãng lai, không phải xuất phát từ các hộ hàng xóm định cư thông thường." }
+                ],
+                sentenceDich: "Dẫn chứng: Mỗi mùa hè tại ngôi làng đều diễn ra lễ hội âm nhạc pop Glastonbury thường niên."
+            },
+            {
+                id: "ex13_2_q2",
+                group: "EX 13 - Reading ❷: NOISY NEIGHBOURS",
+                question: "Question 2: Visitors litter the streets with__________.",
+                options: [
+                    { text: "A. cans and papers", isCorrect: true, info: "Đúng. Dẫn chứng nguyên văn từ bài đọc: 'They leave drink cans and papers all over the streets.'" },
+                    { text: "B. caravans", isCorrect: false, info: "Caravans là xe kéo du lịch dùng để ở tạm trú, không phải rác thải nhỏ vứt bừa bãi." },
+                    { text: "C. motorhomes", isCorrect: false, info: "Motorhomes là phương tiện xe nhà di động dùng để ngủ nghỉ." },
+                    { text: "D. tents", isCorrect: false, info: "Tents là những chiếc lều dùng để cắm trại qua đêm." }
+                ],
+                sentenceDich: "Dẫn chứng từ bài: Du khách xả rác bừa bãi đầy đường phố bằng vỏ lon nước ngọt và các loại giấy tờ."
+            },
+            {
+                id: "ex13_2_q3",
+                group: "EX 13 - Reading ❷: NOISY NEIGHBOURS",
+                question: "Question 3: How long is the pop music festival every year?",
+                options: [
+                    { text: "A. The whole summer", isCorrect: false, info: "Sai, lễ hội không kéo dài suốt cả mùa hè dài đằng đẵng." },
+                    { text: "B. One night", isCorrect: false, info: "Sai, âm nhạc chơi thâu đêm từng đêm nhưng tổng thời gian dài hơn một ngày." },
+                    { text: "C. Three or four days", isCorrect: true, info: "Đúng chính xác. Dẫn chứng từ bài đọc: '...for three or four days every year, the village is full of people...'" },
+                    { text: "D. The whole year", isCorrect: false, info: "Sai, cả năm làng rất yên bình tĩnh lặng." }
+                ],
+                sentenceDich: "Dẫn chứng: Lễ hội âm nhạc pop này chỉ diễn ra trong vòng khoảng từ 3 đến 4 ngày mỗi năm."
+            },
+            {
+                id: "ex13_2_q4",
+                group: "EX 13 - Reading ❷: NOISY NEIGHBOURS",
+                question: "Question 4: What is Pilton like during the rest of the year?",
+                options: [
+                    { text: "A. noisy place", isCorrect: false, info: "Nơi này chỉ ồn ào vào mấy ngày lễ hội mùa hè." },
+                    { text: "B. A quiet village", isCorrect: true, info: "Đúng. Đoạn văn gọi nơi này là 'the quiet country village' (ngôi làng quê yên tĩnh), nó chỉ biến thành ác mộng huyên náo trong 3-4 ngày ngắn ngủi kia thôi." },
+                    { text: "C. A nightmare", isCorrect: false, info: "Chỉ trở thành ác mộng khi diễn ra lễ hội âm nhạc phá vỡ không gian sống." },
+                    { text: "D. A music concert", isCorrect: false, info: "Ngoại trừ dịp festival thì làng không tổ chức các buổi hòa nhạc liên tục." }
+                ],
+                sentenceDich: "Phân tích ngữ cảnh: Vào các thời điểm còn lại trong năm, Pilton vốn dĩ là một ngôi làng nông thôn rất yên tĩnh."
+            },
+            {
+                id: "ex13_2_q5",
+                group: "EX 13 - Reading ❷: NOISY NEIGHBOURS",
+                question: "Question 5: The villagers just want to__________.",
+                options: [
+                    { text: "A. put an end to the festival", isCorrect: false, info: "Sai, dân làng nói 'I don't want to stop the Glastonbury Festival' (Tôi không muốn dẹp bỏ hay dừng lễ hội)." },
+                    { text: "B. stop the fans enjoying the festival", isCorrect: false, info: "Sai, họ vẫn muốn người hâm mộ được tận hưởng niềm vui ('I just want the fans to enjoy the festival')." },
+                    { text: "C. move far away", isCorrect: false, info: "Dù một số người có suy nghĩ muốn chuyển đi vì quá mệt mỏi, nhưng mong muốn cốt lõi ôn hòa được phát biểu trực tiếp là giữ cuộc sống yên bình tại chỗ." },
+                    { text: "D. have a normal life as usual", isCorrect: true, info: "Đúng hoàn toàn. Câu trích dẫn cuối cùng thể hiện nguyện vọng: 'I just want the fans to enjoy the festival without disturbing normal village life' (Tôi chỉ muốn người hâm mộ tận hưởng lễ hội mà không làm xáo trộn cuộc sống bình thường của ngôi làng)." }
+                ],
+                sentenceDich: "Nguyện vọng cuối bài: Người dân chỉ mong muốn có cuộc sống sinh hoạt diễn ra bình thường như mọi khi."
+            },
+
+            // EX 13.3
+            {
+                id: "ex13_3_q1",
+                group: "EX 13 - Reading ❸: London Travel Study",
+                question: "Question 1: How is the traffic in London?",
+                options: [
+                    { text: "A. Traffic in the city centre is better than before.", isCorrect: false, info: "Ngược lại, bài viết nói kẹt xe tệ hơn bao giờ hết ('worse than ever before')." },
+                    { text: "B. Traffic in the suburbs is better than before.", isCorrect: false, info: "Không có thông tin nào khẳng định giao thông vùng ngoại ô đang tốt lên so với quá khứ." },
+                    { text: "C. Traffic in the city centre is heavier than that in the suburbs.", isCorrect: true, info: "Đúng nguyên văn từ văn bản: 'People go everywhere by car, so traffic in the city centre is heavier than that in the suburbs.'" },
+                    { text: "D. Traffic in the suburbs is heavier than that in the city centre.", isCorrect: false, info: "Thông tin đảo ngược sai trái so với nội dung bài đọc." }
+                ],
+                sentenceDich: "Dẫn chứng câu 3 đoạn 1: Giao thông ở trung tâm thành phố đông đúc, nặng nề hơn ở vùng ngoại ô."
+            },
+            {
+                id: "ex13_3_q2",
+                group: "EX 13 - Reading ❸: London Travel Study",
+                question: "Question 2: People in London prefer to go around __________.",
+                options: [
+                    { text: "A. by their own cars", isCorrect: true, info: "Đúng chính xác. Dẫn chứng từ bài đọc: 'The public means of transport is cheaper than cars but the Londoners prefer their own cars.'" },
+                    { text: "B. by public means of transport", isCorrect: false, info: "Mặc dù phương tiện công cộng rẻ hơn, người dân Luân Đôn vẫn không ưu tiên bằng xe cá nhân." },
+                    { text: "C. by both their own cars and public means of transport", isCorrect: false, info: "Bài đọc nhấn mạnh xu hướng thiên vị rõ ràng cho xe cá nhân tự thân." },
+                    { text: "D. by any vehicles", isCorrect: false, info: "Nhận định chung chung mơ hồ, không bám sát tâm lý chuộng dùng ô tô riêng được nêu trong bài." }
+                ],
+                sentenceDich: "Dẫn chứng câu 5 đoạn 1: Người dân Luân Đôn thích tự di chuyển đi lại bằng chiếc xe ô tô riêng của chính họ."
+            },
+            {
+                id: "ex13_3_q3",
+                group: "EX 13 - Reading ❸: London Travel Study",
+                question: "Question 3: How are the streets in London at weekends?",
+                options: [
+                    { text: "A. There is less traffic.", isCorrect: false, info: "Sai, lượng khách du lịch đổ về mua sắm làm tăng lưu lượng giao thông." },
+                    { text: "B. The streets are noisier.", isCorrect: true, info: "Đúng tuyệt đối. Dẫn chứng: 'At weekends, the streets are noisier and busier than they are on weekdays.'" },
+                    { text: "C. Traffic jams are better.", isCorrect: false, info: "Sai, tình trạng kẹt xe tồi tệ hơn nhiều." },
+                    { text: "D. The traffic is not heavier.", isCorrect: false, info: "Sai, đường phố bận rộn sầm uất hơn ngày thường đồng nghĩa giao thông nặng nề hơn." }
+                ],
+                sentenceDich: "Dẫn chứng đoạn 1: Vào các ngày cuối tuần, đường phố trở nên ồn ào (noisier) và bận rộn hơn ngày thường."
+            },
+            {
+                id: "ex13_3_q4",
+                group: "EX 13 - Reading ❸: London Travel Study",
+                question: "Question 4: The living cost in the city centre is __________.",
+                options: [
+                    { text: "A. cheaper than that in the suburbs and the countryside", isCorrect: false, info: "Ngược lại, vùng ngoại ô mới là nơi rẻ hơn trung tâm." },
+                    { text: "B. not expensive but people like to live in the suburbs and the countryside", isCorrect: false, info: "Thông tin sai, trung tâm rất đắt đỏ và giới trẻ vẫn đâm đầu vào sống ở trung tâm." },
+                    { text: "C. not cheap so more people want to leave there now", isCorrect: false, info: "Bài viết chỉ ra người trẻ vẫn thích sống ở trung tâm bất chấp chi phí cao chứ không phải muốn rời đi." },
+                    { text: "D. more expensive than that in the suburbs and the countryside", isCorrect: true, info: "Đúng dựa trên phép suy luận logic logic chiều từ câu: 'Although the living cost in the suburbs and the countryside is cheaper than that in the city centre...' (Mặc dù chi phí sinh hoạt ở ngoại ô và nông thôn rẻ hơn ở trung tâm) -> Có nghĩa là chi phí ở trung tâm đắt đỏ, đắt tiền hơn vùng ngoại ô và nông thôn." }
+                ],
+                sentenceDich: "Phép suy luận logic bắc cầu từ câu 1 đoạn 2: Chi phí sinh hoạt ở trung tâm thành phố đắt đỏ hơn ở vùng ngoại ô và nông thôn."
+            },
+            {
+                id: "ex13_3_q5",
+                group: "EX 13 - Reading ❸: According to the passage, what is NOT true about London?",
+                options: [
+                    { text: "A. London's public means of transport is more expensive than cars.", isCorrect: true, info: "Đây là thông tin SAI (NOT TRUE), tức là đáp án cần chọn. Bài viết ghi rõ: 'The public means of transport is cheaper than cars' (Giao thông công cộng RẺ HƠN xe hơi). Vì vậy câu khẳng định phương tiện công cộng ĐẮT HƠN xe hơi là hoàn toàn sai lệch dữ kiện." },
+                    { text: "B. There are a lot of people in the city centre, especially at weekends.", isCorrect: false, info: "Thông tin này đúng với thực tế mô tả của bài đọc nên không chọn." },
+                    { text: "C. More and more people come to London for sightseeing.", isCorrect: false, info: "Thông tin này đúng dữ kiện bài viết ('more and more tourists and visitors coming to London for sightseeing')." },
+                    { text: "D. London is richer than other cities in the United Kingdom.", isCorrect: false, info: "Thông tin này đúng thực tế văn bản đoạn 2 đã cung cấp ('London is richer than other cities in the United Kingdom')." }
+                ],
+                sentenceDich: "Yêu cầu chọn thông tin SAI: Khẳng định 'Giao thông công cộng Luân Đôn đắt hơn xe hơi cá nhân' hoàn toàn trái ngược văn bản."
+            }
+        ];
+
+        // Global Interactive App State Management Variables
+        let userAnswers = {};
+        let timerInterval = null;
+        let timeLeft = 600; // 10 minutes in total seconds
+        let isTimerRunning = false;
+
+        // Shuffle utility array helper logic (Fisher-Yates Algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Web Audio API Sound FX Synthesizer Generator Factory
+        function playAudioTone(type) {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                
+                if (type === 'correct') {
+                    // Sweet High-pitched Ding Sound effect
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5 note
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);  // A5 note
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.4);
+                } else if (type === 'wrong') {
+                    // Retro Low-pitched Game-Over Téo tèo tèo buzzer effect
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(180, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.35);
+                }
+            } catch (e) {
+                console.log("Audio playing pending user interaction unlocking gesture.", e);
+            }
+        }
+
+        // Translation toggle component trigger
+        function toggleTranslation(button) {
+            const content = button.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+                button.textContent = "Mở dịch đoạn này 🌟";
+            } else {
+                content.style.display = "block";
+                button.textContent = "Đóng bản dịch ❌";
+            }
+        }
+
+        // Timer engine controllers
+        function updateTimerUI() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById("timerDisplay").textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById("timerControlBtn");
+            if (isTimerRunning) {
+                // Pause action
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+                btn.textContent = "TIẾP TỤC LÀM BÀI";
+                btn.style.background = "#20bf6b";
+            } else {
+                // Start or resume action
+                isTimerRunning = true;
+                btn.textContent = "TẠM DỪNG";
+                btn.style.background = "#ff4757";
+                
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerUI();
+                    } else {
+                        clearInterval(timerInterval);
+                        isTimerRunning = false;
+                        btn.textContent = "HẾT GIỜ LÀM BÀI";
+                        btn.disabled = true;
+                        alert("Đã hết giờ làm bài. Bạn vẫn có thể tiếp tục làm, nhưng nhớ là trong phòng thi thật, bạn chỉ nên làm một bài như thế này trong 10 phút thôi nha.");
+                    }
+                }, 1000);
+            }
+        }
+
+        // Render Questions UI dynamically with internal option shuffling mechanics
+        function renderQuizSystem() {
+            const container = document.getElementById("questionsContainer");
+            container.innerHTML = "";
+
+            let currentGroup = "";
+            
+            quizData.forEach((q, qIdx) => {
+                // Inject Group Header section title if transitioned
+                if (currentGroup !== q.group) {
+                    currentGroup = q.group;
+                    const groupHeader = document.createElement("div");
+                    groupHeader.className = "exercise-group-title";
+                    groupHeader.textContent = currentGroup;
+                    container.appendChild(groupHeader);
+                }
+
+                // Create Question card structural container
+                const card = document.createElement("div");
+                card.className = "question-card";
+                card.id = `card_${q.id}`;
+
+                const qText = document.createElement("div");
+                qText.className = "question-text";
+                qText.textContent = q.question;
+                card.appendChild(qText);
+
+                const grid = document.createElement("div");
+                grid.className = "options-grid";
+
+                // Clone options array and apply specific independent tráo đổi shuffle rule
+                let randomizedOptions = [...q.options];
+                shuffleArray(randomizedOptions);
+
+                randomizedOptions.forEach((opt) => {
+                    const btn = document.createElement("button");
+                    btn.className = `option-btn btn_class_${q.id}`;
+                    btn.textContent = opt.text;
+                    
+                    // Attach interactive immediate feedback selection callback
+                    btn.onclick = function() {
+                        handleOptionSelection(q.id, btn, opt.isCorrect, q.sentenceDich);
+                    };
+
+                    grid.appendChild(btn);
+                });
+
+                card.appendChild(grid);
+
+                // Add Explanation placeholder block
+                const expBox = document.createElement("div");
+                expBox.className = "explanation-box";
+                expBox.id = `exp_${q.id}`;
+                card.appendChild(expBox);
+
+                container.appendChild(card);
+            });
+        }
+
+        // Handle direct element answer selection execution
+        function handleOptionSelection(questionId, selectedBtn, isCorrect, sentenceDich) {
+            const allButtons = document.querySelectorAll(`.btn_class_${questionId}`);
+            const expBox = document.getElementById(`exp_${questionId}`);
+            const questionRecord = quizData.find(item => item.id === questionId);
+
+            // Turn off dynamic clicks on this targeted card
+            allButtons.forEach(btn => {
+                btn.classList.add("disabled-state");
+            });
+
+            // Save choice configuration locally
+            userAnswers[questionId] = isCorrect;
+
+            if (isCorrect) {
+                selectedBtn.classList.add("correct-ans");
+                playAudioTone('correct');
+                triggerConfettiBurst();
+            } else {
+                selectedBtn.classList.add("incorrect-ans");
+                selectedBtn.classList.add("shake-animation");
+                playAudioTone('wrong');
+
+                // Auto-highlight true answer item to user right away
+                allButtons.forEach(btn => {
+                    const referenceOption = questionRecord.options.find(o => o.text === btn.textContent);
+                    if (referenceOption && referenceOption.isCorrect) {
+                        btn.classList.add("correct-ans");
+                    }
+                });
+            }
+
+            // Build structural multi-dimensional smart explanation block text
+            let explanationHTML = `
+                <div class="exp-title">👩‍🏫 Cô Lê Hằng Giải Thích Chi Tiết:</div>
+                <p><strong>1. Phân tích ngữ nghĩa & từ vựng các lựa chọn:</strong></p>
+                <ul style="margin-left: 20px; margin-bottom: 10px;">
+            `;
+
+            questionRecord.options.forEach(o => {
+                explanationHTML += `<li>${o.info}</li>`;
+            });
+
+            explanationHTML += `
+                </ul>
+                <p><strong>2. Dịch nghĩa ngữ cảnh câu văn:</strong> "${sentenceDich}"</p>
+                <p style="margin-top: 8px; color: ${isCorrect ? '#099268' : '#e03131'}; font-weight: 800;">
+                    👉 Kết luận: Kết quả của bạn là: ${isCorrect ? 'CHÍNH XÁC ĐƠN THUẦN! Quá siêu!' : 'CHƯA ĐÚNG! Đừng lo, học kỹ giải thích nhé!'}
+                </p>
+            `;
+
+            expBox.innerHTML = explanationHTML;
+            expBox.style.display = "block";
+        }
+
+        // Basic Confetti Burst Animation Logic Engine for Gamified Success celebration
+        function triggerConfettiBurst() {
+            const canvas = document.getElementById("confetti-canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ['#ffeaa7', '#ff7675', '#74b9ff', '#55efc4', '#a29bfe'];
+
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: window.innerWidth / 2,
+                    y: window.innerHeight / 2,
+                    vx: (Math.random() - 0.5) * 15,
+                    vy: (Math.random() - 0.5) * 15 - 5,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+
+            function animateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let active = false;
+
+                particles.forEach(p => {
+                    if (p.alpha > 0) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vy += 0.2; // gravity pull simulation
+                        p.alpha -= 0.02;
+                        ctx.globalAlpha = p.alpha;
+                        ctx.fillStyle = p.color;
+                        ctx.fillRect(p.x, p.y, p.size, p.size);
+                        active = true;
+                    }
+                });
+
+                if (active) {
+                    requestAnimationFrame(animateConfetti);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+            animateConfetti();
+        }
+
+        // Final grading calculator operation function
+        function evaluateQuiz() {
+            const totalQuestions = quizData.length;
+            let correctCount = 0;
+
+            quizData.forEach(q => {
+                if (userAnswers[q.id] === true) {
+                    correctCount++;
+                }
+            });
+
+            // Set up customized user assessment feedback statement packages
+            let badge = "🤠";
+            let message = "";
+            const percentage = (correctCount / totalQuestions) * 100;
+
+            if (percentage === 100) {
+                badge = "👑 天才 - THIÊN TÀI XUẤT SẮC!";
+                message = `Bạn đã đạt điểm số tối đa tuyệt đối ${correctCount}/${totalQuestions}! Bạn là niềm tự hào của Ms Lê Hằng English! Tiếp tục phát huy tinh thần học tập đỉnh cao này nhé!`;
+                playAudioTone('correct');
+                setTimeout(triggerConfettiBurst, 300);
+            } else if (percentage >= 80) {
+                badge = "🌟 LÀM TỐT LẮM - EXCELLENT!";
+                message = `Kết quả rất cao: ${correctCount}/${totalQuestions} câu đúng! Kỹ năng đọc hiểu và kiến thức ngữ pháp của bạn cực kỳ vững vàng. Sẵn sàng chinh phục mọi phòng thi thật rồi!`;
+            } else if (percentage >= 50) {
+                badge = "👍 KHÁ TỐT - GOOD JOB!";
+                message = `Bạn trả lời đúng ${correctCount}/${totalQuestions} câu. Hãy dành thêm chút thời gian xem lại các câu đã chọn sai ở hộp giải thích chi tiết để tích lũy thêm mẹo làm bài nha.`;
+            } else {
+                badge = "💪 CỐ LÊN NHÉ - KEEP TRYING!";
+                message = `Bạn đúng được ${correctCount}/${totalQuestions} câu. Đừng nản chí nhé, học ngoại ngữ là một hành trình dài. Hãy nhấn nút làm lại để luyện tập lại từ đầu cùng cô nhé!`;
+            }
+
+            document.getElementById("modalBadge").textContent = badge;
+            document.getElementById("modalScoreText").textContent = `Kết quả: ${correctCount} / ${totalQuestions} Câu Đúng`;
+            document.getElementById("modalFeedbackText").textContent = message;
+
+            // Display overlay dashboard container
+            document.getElementById("scoreModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            // Reset state to default settings and rebuild everything cleanly
+            document.getElementById("scoreModal").style.display = "none";
+            userAnswers = {};
+            timeLeft = 600;
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                isTimerRunning = false;
+            }
+            document.getElementById("timerControlBtn").disabled = false;
+            document.getElementById("timerControlBtn").textContent = "BẮT ĐẦU TÍNH GIỜ LÀM BÀI";
+            document.getElementById("timerControlBtn").style.background = "var(--primary-color)";
+            updateTimerUI();
+            
+            // Re-render and automatically trigger reshuffling dynamically
+            renderQuizSystem();
+        }
+
+        // Initialize core layout framework rendering instantly on document ready lifecycle event
+        window.onload = function() {
+            renderQuizSystem();
+            updateTimerUI();
+        };
+    </script>
+</body>
+</html>
